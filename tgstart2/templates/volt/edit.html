@@ -1,0 +1,100 @@
+{% extends 'baselk.html' %}
+{% load static %}
+
+{% block title %}Мои боты{% endblock %}
+
+{% block head%}
+    <style media="screen">
+        td a{
+          cursor:pointer;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+{%endblock%}
+
+
+{%block mainContent%}
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 zag">{{cBot.bot_name}} / Редактирование</h1>
+      </div>
+      <label class="errorLine"></label><br>
+
+      <!-- Modal -->
+      <form class="form-inline" id='addCommandForm' action="" method="post">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+          <label class="errorLine sr-only"></label><br>
+            <textarea rows="4" maxlength="35" cols="35" required class="botCommand " autocomplete="off" placeholder="Команда" type="text" name="botCommand" value=""></textarea><br>
+            <textarea rows="4" maxlength="35" cols="35" required class="botResponse " autocomplete="off" placeholder="Ответ" type="text" name="botResponse" value=""></textarea>
+        </div>
+        <br>
+        <button type="button" class="createBot btn nav-link1" name="button">Добавить команду</button>
+      </form><br>
+
+
+      {%if cBotCustomCommands != 0%}
+        <table id='tableCommands' class="">
+          <thead>
+            <tr>
+              <th class="zag">Команда</th>
+              <th class="zag">Ответ</th>
+              <th class="zag">Удалить</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for i in cBotCustomCommands%}
+              <tr>
+                <td class="name1">{{i.command}}</td>
+                <td class="name1">{{i.response}}</td>
+                <td><a class="nav-link1 editLink delkom" style="margin-left:20px; color:red!important;" data-id='{{cBot.id}}' data-idCommand='{{i.id}}'">Удалить</a></td>
+              </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      {%else%}
+        <h2 class="zag">Команд ещё нет</h2>
+      {%endif%}
+{% csrf_token %}
+
+    </main>
+    <script>
+      $('.editLink').click(function(){
+        // let a = $(this).data('bid')
+        let data = 'csrfmiddlewaretoken='+$("input[name='csrfmiddlewaretoken']").val()+"&idCommand="+$(this).data('idcommand')
+        // console.log(data)
+        $.ajax({
+          url: '', // путь к php-обработчику
+          type: 'POST', // метод передачи данных
+          dataType: 'html', // тип ожидаемых данных в ответе
+          data: data, // данные, которые передаем на сервер
+          error: function(req, text, error){ // отслеживание ошибок во время выполнения ajax-запроса
+            alert('Хьюстон, У нас проблемы! ' + text + ' | ' + error);
+          },
+          success: function(d){
+            $('.errorLine').text(d).css('color', 'green');
+          }
+        });
+        $(this).parents('tr').remove()
+      });
+
+      $('.createBot').click(function(){
+
+        $.ajax({
+          url: '', // путь к php-обработчику
+          type: 'POST', // метод передачи данных
+          dataType: 'html', // тип ожидаемых данных в ответе
+          data: $('#addCommandForm').serialize(), // данные, которые передаем на сервер
+          error: function(req, text, error){ // отслеживание ошибок во время выполнения ajax-запроса
+            alert('Хьюстон, У нас проблемы! ' + text + ' | ' + error);
+          },
+          success: function(d){
+            $('.errorLine').text(d).css('color', 'green');
+            $('#tableCommands tr:last').after("<tr><td>"+$(".botCommand").val()+"</td><td>"+$(".botResponse").val()+"</td><td><a class='editLink'  data-id='{{cBot.id}}' data-idCommand='{{i.id}}'>Удалить</a></td></tr>");
+            $(':input','#addCommandForm').not(':button, :submit, :reset, :hidden').val('')
+          }
+        });
+      });
+    </script>
+{%endblock%}

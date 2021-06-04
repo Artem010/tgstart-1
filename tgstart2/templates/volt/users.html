@@ -1,0 +1,214 @@
+{% extends 'baselk.html' %}
+{% load static %}
+
+{% block title %}Пользователи{% endblock %}
+
+
+{% block head%}
+{%endblock%}
+
+
+{%block mainContent%}
+
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 zag">Пользователи</h1>{{url}}
+        <label class="errorLine2"></label><br>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button class="btn btn-secondary choose-bot dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {%if cBot%}
+              {{cBot.bot_name}}
+            {%else%}
+              Выберите бота
+            {%endif%}
+          </button>
+          <div class="text-truncate dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {%for b in tgBots reversed %}
+
+            <a class="changeLink dropdown-item" data-id="{{b.id}}" href="">{{b.bot_name}}</a>
+            {%endfor%}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title zag" id="exampleModalLabel">Редактирование сообщения</h5>
+              <button type="button" class="close nav-link1" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <form class="" action="" id='sendMessageForm' method="post">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label class="errorLine"></label><br>
+                    <label for="messageText" class="name">Сообщение:</label>
+                    <input class="form-control" autocomplete="off" type="text" name="messageText" id="messageText" value="">
+                </div>
+                <button type="button" id='sendMessageBtn' class="nav-link1 ">Отправить</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div> -->
+
+      <div class="modal fade " id="exampleModal"    aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <a href="#close" title="Close" data-dismiss="modal" aria-label="Close" class="close nav-link1">×</a>
+              <h3 class="modal-title zag">Редактирование сообщения</h3>
+              
+              <form id="sendMessageForm" class=""  method="post">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label class="errorLine"></label><br>
+                    <label for="messageText" class="name">Сообщение:</label>
+                    <input class="form-control" autocomplete="off" type="text" name="messageText" id="messageText" value="">
+                </div>
+                  <button type="button" id='sendMessageBtn' class="nav-link1 ">Отправить</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hid1">
+
+
+      {%if usersData != 0%}
+        <table class="hid1">
+          <thead>
+            <tr>
+              <!-- <th scope=“col”>avatar</th> -->
+              <th scope=“col” class="zag">Username</th>
+              <th scope=“col” class="zag">Имя</th>
+              <th scope=“col” class="zag">Фамилия</th>
+              <th scope=“col” class="zag">id</th>
+              <!-- <th scope=“col” class="zag">Дата регистрации</th> -->
+              <th scope=“col” class="zag">Message</th>
+              <th scope=“col” class="zag">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for i in usersData %}
+
+              <tr id="tr{{forloop.counter}}">
+                <!-- <td><img width="50px" height="50px" src="https://api.telegram.org/file/bot{{cBot.token}}/{{i.pathAvatar}}" alt=""></td> -->
+                <td aria-label=“Username”><a class="nav-link1" href="https://t.me/{{i.username}}">{{i.username}}</a></td>
+                <td aria-label=“FirstName” class="name1">{{i.first_name}}</td>
+                <td aria-label=“LastName” class="name1">{{i.last_name}}</td>
+                <th aria-label=“Id” class="name">{{i.tg_id}}</th>
+                <!-- <th aria-label=“DateReg” class="name">{{i.dateReg}}</th> -->
+                <th><button  class='sendMessage  nav-link1' data-uid={{i.id}} data-bid={{cBot.id}} data-toggle="modal" data-target="#exampleModal">Написать</button></th>
+                <th><button  class='delUserBtn nav-linkdanger nav-link1' data-trid="tr{{forloop.counter}}" data-uid={{i.id}} data-bid={{cBot.id}}>Удалить</button></th>
+              </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      {%else%}
+        <h2 class="zag">Пользователей ещё нет</h2>
+      {%endif%}
+      </div>
+      {%if usersData != 0%}
+      <div class="hid2">
+
+
+        <table >
+
+          <tbody>
+            {%for i in usersData %}
+
+              <tr id="tr{{forloop.counter}}">
+                <!-- <td><img width="50px" height="50px" src="https://api.telegram.org/file/bot{{cBot.token}}/{{i.pathAvatar}}" alt=""></td> -->
+                <td aria-label=“Username”><a class="nav-link1" href="https://t.me/{{i.username}}">{{i.username}}</a></td>
+                <!-- <td aria-label=“FirstName”>{{i.first_name}}</td>
+                <td aria-label=“LastName”>{{i.last_name}}</td>
+                <th aria-label=“Id”>{{i.tg_id}}</th>
+                <th aria-label=“DateReg”>{{i.dateReg}}</th> -->
+                <th><button  class='sendMessage  nav-link1' data-uid={{i.id}} data-bid={{cBot.id}} data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></button></th>
+                <th><button  class='delUserBtn nav-linkdanger nav-link1' data-trid="tr{{forloop.counter}}" data-uid={{i.id}} data-bid={{cBot.id}}>Удалить</button></th>
+              </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      {%else%}
+        <h2 class="zag hid2">Пользователей ещё нет</h2>
+      {%endif%}
+      </div>
+    </main>
+
+
+{%endblock%}
+
+{% block footerScripts%}
+
+<script type="text/javascript">
+  $(function () {
+    let cBotID,userID
+    $(".sendMessage").click(function () {
+       $("#messageText").val('')
+       $('.errorLine').text('')
+       cBotID = $(this).data('bid');
+       userID = $(this).data('uid');
+    });
+
+    $("#sendMessageBtn").click(function(){
+      if($('#messageText').val() != ''){
+        data = $("#sendMessageForm").serialize() +'&userID='+userID+'&sendMessage=1'
+        console.log(data)
+      	$.ajax({
+      		url: '',
+      		method: 'POST',
+      		dataType: 'html',
+      		data: data,
+      		success: function(data){
+            $('.errorLine').text('Сообщение отправлено!').css('color', 'green');
+      		}
+      	});
+      }else{
+        $('.errorLine').text('Сообщение пустое!').css('color', 'red');
+      }
+
+    });
+
+    $(".changeLink").click(function(){
+      let data = 'csrfmiddlewaretoken='+$("input[name='csrfmiddlewaretoken']").val()+'&botID='+$(this).data('id')
+      console.log(data)
+      $.ajax({
+        url: '',
+        method: 'POST',
+        dataType: 'html',
+        data: data,
+        success: function(d){
+          // alert(d)
+        }
+      });
+    });
+
+    $(".delUserBtn").click(function(){
+      data = 'csrfmiddlewaretoken='+$("input[name='csrfmiddlewaretoken']").val() +'&userID='+$(this).data('uid')+'&delUser=1'
+      console.log(data)
+    	$.ajax({
+    		url: '',
+    		method: 'POST',
+    		dataType: 'html',
+    		data: data,
+    		success: function(d){
+          $('.errorLine2').text(d).css('color', 'green');
+          $("#"+$(".delUserBtn").data('trid')).remove();
+          console.log($(".delUserBtn").data('trid'));
+    		}
+    	});
+    });
+
+  });
+</script>
+
+{% endblock%}

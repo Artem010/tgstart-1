@@ -1,0 +1,198 @@
+{% extends 'baselk.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block head%}
+
+{%endblock%}
+
+
+{%block mainContent%}
+  <!-- <div class="col-md-9 col-lg-10">
+    <h1 class="h2">Панель управления  </h1>
+  </div> -->
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 theme zag lng-upr">Панель управления  </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          {% if botData%}
+          {%if botData.bot.status == 1%}
+            <a href="/mybots/deactivatebot" data-id='{{i.id}}' class=" theme nav-link1  ">Отключить</a>
+          {%else%}
+            <a href="/mybots/activatebot" data-id='{{i.id}}' class="theme nav-link1 ">Включить</a>
+          {%endif%}
+
+          <button class="btn btn-secondary theme choose-bot dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {%if botData.bot%}
+              {{botData.bot.bot_name}}
+            {%else%}
+              Выберите бота
+            {%endif%}
+          </button>
+          {%if allBots != '0'%}
+            <div class="text-truncate dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {%for b in allBots reversed %}
+                <a class="changeLink dropdown-item" data-id="{{b.id}}" href="">{{b.bot_name}}</a>
+              {%endfor%}
+            </div>
+          {%endif%}
+          {%else%}
+          {%endif%}
+
+        </div>
+      </div>{% csrf_token %}
+        {% if botData%}
+        <div class="row justify-content-center">
+          <div class="col-md-5 theme canvas-card">
+            <canvas class="my-4 w-100  theme"  id="myChart" >Your browser does not support the canvas element.</canvas>
+          </div>
+          <div class="col-md-3">
+            <div class="inf-card  theme">
+              <i class="fa fa-user fa-fw"  ></i> Пользователи: {{botData.usersCount}}
+            </div>
+            <div class="inf-card  theme">
+              <i class="fa fa-terminal fa-fw"  ></i> Команды: {{botData.commandsCount}}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="inf-card  theme">
+              <i class="fa fa-user fa-fw"  ></i> Сообщений сегодня: {{botData.msgTodayCount}}
+          </div>
+        </div>
+        {%else%}
+        <h2 class="zag">У вас ещё нет ботов</h2>
+        {%endif%}
+{{data}}
+<!-- {{botData.dataChart}} -->
+    </main>
+{% endblock %}
+
+
+{%block footerScripts%}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+
+    <script>
+    /* globals Chart:false, feather:false */
+
+      (function () {
+      'use strict'
+
+      // console.log($('#stat').text())
+
+      {%if not botData.dataChart == '0' %}
+        let statMSGS = [
+        {%for i in botData.dataChart%}
+            '{{i.count}}',
+        {%endfor%}
+        ]
+        let labelsMSGS = [
+        {%for i in botData.dataChart%}
+            '{{i.date}}',
+        {%endfor%}
+        ]
+      {%endif%}
+      // console.log(statMSGS)
+
+      let colors = ["green", "blue", "red", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"]
+
+
+      {%if data%}
+
+        labelsMSGS = [
+
+          {%for i in data%}
+
+            {%for j in i%}'{{j.date}}',{%endfor%}
+
+          {%endfor%}
+
+        ]
+
+        let labelsMSGS_1 = new Set(labelsMSGS);
+
+         labelsMSGS = Array.from(new Set(labelsMSGS));
+
+        let datasets = [
+          {%for i in data%}
+            {
+              data: [{%for j in i%}{{j.count}},{%endfor%}],
+              lineTension: 0,
+              backgroundColor: 'transparent',
+              borderColor: colors[{{forloop.counter0}}],
+              borderWidth: 4,
+              pointBackgroundColor: colors[{{forloop.counter0}}]
+            },
+          {%endfor%}
+        ]
+
+      {%else%}
+      let datasets =  [{
+          data: statMSGS,
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: colors[{{botData.dataChart|length}}],
+          borderWidth: 4,
+          pointBackgroundColor: colors[{{botData.dataChart|length}}]
+        }]
+      {%endif%}
+
+      // Graphs
+      var ctx = document.getElementById('myChart')
+      // eslint-disable-next-line no-unused-vars
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labelsMSGS,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+  					mode: 'index',
+  					intersect: false,
+  				},
+          scales: {
+            xAxes: [{
+  						display: true,
+  						scaleLabel: {
+  							display: true,
+  							labelString: 'Дата'
+  						}
+  					}],
+  					yAxes: [{
+  						display: true,
+  						scaleLabel: {
+  							display: true,
+  							labelString: 'Кол-во сообщений'
+  						}
+  					}]
+          },
+          legend: {
+            display: false
+          }
+        }
+      })
+      })()
+
+      $(".changeLink").click(function(){
+        let data = 'csrfmiddlewaretoken='+$("input[name='csrfmiddlewaretoken']").val()+'&botID='+$(this).data('id')
+        console.log(data)
+      	$.ajax({
+      		url: '',
+      		method: 'POST',
+      		dataType: 'html',
+      		data: data,
+      		success: function(d){
+            // alert(d)
+      		}
+      	});
+      });
+
+    console.log('{{request.session.mainBotId}}')
+
+    </script>
+
+
+{% endblock %}

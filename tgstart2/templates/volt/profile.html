@@ -1,0 +1,103 @@
+{% extends 'baselk.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+
+{% block head%}
+
+{%endblock%}
+
+
+{%block mainContent%}
+
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 zag">Мой профиль</h1>
+      </div>
+
+
+      <!-- <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <label for="" class="col-sm-1 col-form-label">Username:</label>
+            <input type="text" disabled value="{{auth.userData.user_name}}">
+        </div>
+        <div class="form-group mb-2">
+            <label for="" class="col-sm-1 col-form-label">Name:</label>
+            <input type="text" disabled value="{{auth.userData.user_firstname}}">
+        </div>
+        <div class="form-group mb-2">
+            <label for="" class="col-sm-1 col-form-label">Last name:</label>
+            <input type="text" id='last_name' name="last_name" value="{{auth.userData.user_lastname}}">
+        </div>
+        <input type="submit" value="Сохранить" class="btn btn-primary"></input>
+      </form> -->
+      <div class="row">
+        <div class="col-md-4 col-lg-5 ">
+          <div class=" name-card">
+            <div class="card1">
+              <div class="name">
+                Ник:
+              </div>
+              <div class="name1">
+                 {{auth.userData.user_name}}
+              </div>
+            </div>
+            <div class="card1">
+              <div class="name">
+                Имя:
+              </div>
+              <div class="name1">
+                 {{auth.userData.user_firstname}}
+              </div>
+            </div>
+
+            <div class="card1">
+              <div class="name">
+                Фамилия:
+              </div>
+              <div class="name1">
+                 {{auth.userData.user_lastname}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <!-- <div class="col-md-4 col-lg-5 ">
+          <div class=" name-card">
+            <div class="card1">
+              <div class="name">
+                Всего пользователей:
+              </div>
+              <div class="name1">
+                {{auth.userData.user_lastname}}
+              </div>
+            </div>
+            <div class="card1">
+              <div class="name">
+                Всего ботов:
+              </div>
+              <div class="name1">
+                43
+              </div>
+            </div>
+
+            <div class="card1">
+              <div class="name">
+                Всего сообщений:
+              </div>
+              <div class="name1">
+                48384834
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+    </main>
+{%endblock%}

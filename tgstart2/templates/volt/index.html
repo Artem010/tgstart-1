@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/index.css'%}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body class="theme">
+  <nav class="navbar theme navbar-expand-lg">
+    <ul class="navbar-nav mr-auto">
+      <li class="navbar-brand theme-brand">TeleBuilder</li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="theme"><a class="theme__button nav-link">Изменить тему</a></li>
+      <li class="nav-item"><a class="nav-link" href="/auth">Войти</a></li>
+    </ul>
+</nav>
+
+</body>
+<script type="text/javascript">
+const btn = document.querySelector('.theme__button')
+const theme = document.querySelector('.theme')
+const currentTheme = localStorage.getItem('theme')
+
+function setTheme(name){
+theme.setAttribute('data-theme', name)
+localStorage.setItem('theme', name)
+}
+
+if (currentTheme) {
+theme.setAttribute('data-theme', currentTheme)
+} else {
+setTheme('light')
+}
+
+btn.addEventListener('click', () => {
+if (theme.getAttribute('data-theme') === 'light') {
+  setTheme('dark')
+} else if (theme.getAttribute('data-theme') === 'dark') {
+  setTheme('light')
+}
+})
+</script>
+</html>

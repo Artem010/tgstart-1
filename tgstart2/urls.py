@@ -8,7 +8,6 @@ urlpatterns = [
     path('', include('lk.urls')),
     path('', include('users.urls')),
     path('admin/', admin.site.urls),
-    path('grappelli/', include('grappelli.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # START SUBPROCESSES

@@ -39,8 +39,8 @@ def reloadbot(request):
 
 def activatebot(request):
     cDir = os.getcwd() + '/tgstart2/bots/' + str( request.session.get('mainUserId')) + "/"+str(request.session.get('mainBotId'))
-    # pr = subprocess.Popen(['python', cDir +'/main.py']) #starting subprocess with bot
-    pr = subprocess.Popen(['python3', cDir +'/main.py'])
+    pr = subprocess.Popen(['python', cDir +'/main.py']) #starting subprocess with bot
+    # pr = subprocess.Popen(['python3', cDir +'/main.py'])
     mainUser = getMainUser(request)
     mainUser.bot_set.filter(id=request.session.get('mainBotId')).update(pID = pr.pid, status = 1) #updating status on 1 and set pID process
     print("*******Activateded bot*******")
@@ -168,8 +168,8 @@ def mybots(request):
             text_config.write("bot_id = '" + mainBotId+ "'\n") #add row bot_id
             shutil.copyfile(cDir + "main.py", cDir + mainUserId + "/" + mainBotId +"/main.py") #copy pattern file with bot's code
 
-            # pr = subprocess.Popen(['python', cDir + mainUserId + "/" + mainBotId +'/main.py']) #starting subprocess with bot's script
-            pr = subprocess.Popen(['python3', cDir + sUserId + "/" + cBotId +'/main.py']) #starting (server) subprocess with bot's script
+            pr = subprocess.Popen(['python', cDir + mainUserId + "/" + mainBotId +'/main.py']) #starting subprocess with bot's script
+            # pr = subprocess.Popen(['python3', cDir + sUserId + "/" + cBotId +'/main.py']) #starting (server) subprocess with bot's script
 
             mainUser.bot_set.filter(id=mainBotId).update(pID = pr.pid) #updating bot db and writting process pid
             return HttpResponse("Бот успешно создан!") #sending response
@@ -215,6 +215,8 @@ def users(request):
 
     return render(request, 'volt/users.html', {'usersData':usersData, 'tgBots':tgBots, 'cBot':cBot, 'auth': check_auth(request)})
 
+def instruction(request):
+    return render(request,'volt/instruction.html',{'auth': check_auth(request)})
 
 def profile(request):
     if request.method == "POST":

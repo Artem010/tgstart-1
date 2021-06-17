@@ -20,7 +20,6 @@ urlpatterns = [
 	path('mybots/activatebot', views.activatebot, name = 'activatebot'),
 	path('mybots/deactivatebot', views.deactivatebot, name = 'deactivatebot'),
 	path('mybots/edit', views.edit, name = 'edit'),
-	# path('pay/', views.pay, name = 'pay'),
-	# path('senders/', views.senders, name = 'senders'),
-	path('users/', views.users, name = 'users')
+	path('users/', views.users, name = 'users'),
+	path('instruction/', views.instruction, name = 'instruction')
 ]

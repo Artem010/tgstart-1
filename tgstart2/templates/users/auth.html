@@ -103,7 +103,7 @@
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 			<div class="tglogin">
-				<script async src="https://telegram.org/js/telegram-widget.js?14" data-telegram-login="tgstartAuth2bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+				<script async src="https://telegram.org/js/telegram-widget.js?14" data-telegram-login="zaktsyAuthBot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
 			</div>
 			<p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
 		</form>
@@ -113,7 +113,7 @@
 		<form class="blanrform" action="" method="POST" id='form1'>
 		{% csrf_token %}
 			<label for="tg_idname">Username:</label>
-			<input type="text" name="username" value="5" maxlength="100"  id="tg_idname"></p>
+			<input type="text" name="username" value="5" maxlength="100"  id="tg_idname">
 
 			<label for="id_first_name">First name:</label>
 			<input type="text" name="first_name" value="5" maxlength="100"  id="id_first_name">

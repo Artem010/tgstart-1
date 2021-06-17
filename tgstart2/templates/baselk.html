@@ -25,9 +25,7 @@
 	<link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
 	<link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
-
 <body class="theme">
-
 	<nav class="navbar  theme sticky-top navbar-expand-lg">
 		<ul class="navbar-nav mr-auto">
 			<li class="navbar-brand theme ">TeleBuilder</li>
@@ -43,19 +41,16 @@
 				</a>
 			</li>
 			<li class="nav-item">
-
 			</li>
 		</ul>
 					<button class="navbar-toggler   ml-auto collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
 				  </button>
 	</nav>
-
 	<div class="container-fluid">
 	  <div class="row">
 	    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block theme sidebar collapse">
 	      <div class="position-sticky pt-3">
-
 	        <ul class="theme nav flex-column">
 	          <li class="theme nav-item1">
 	            <a class="theme lng-upr nav-link1{% if auth.url == 'dashboard'%} active{%endif%}" aria-current="page" href="/dashboard">
@@ -69,34 +64,22 @@
 	              Мои боты
 	            </a>
 	          </li>
-
 	          <li class="theme nav-item1">
 	            <a class="theme nav-link1{% if auth.url == 'users'%} active{%endif%}" href="/users">
-
 								<i class="fa fa-user fa-fw hid" aria-hidden="true"></i>
 	              Пользователи
-
-
 	            </a>
 	          </li>
-
-	          <!-- <li class="theme nav-item1">
-	            <a class="theme nav-link1{% if auth.url == 'senders'%} active{%endif%}" href="/senders">
-	              <i class="fa fa-bar-chart fa-fw hid " aria-hidden="true"></i>
-	              Рассылки
-	            </a>
-	          </li> -->
-	          <!-- <li class="theme nav-item1">
-	            <a class="theme nav-link1{% if auth.url == 'pay'%} active{%endif%}" href="/pay">
-	              <i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i>
-	              Тарифы
-
-	            </a>
-	          </li> -->
 	          <li class="theme nav-item1">
 	            <a class="theme nav-link1{% if auth.url == 'profile'%} active{%endif%}" href="/profile">
 	              <i class="fa fa-cog fa-fw hid" aria-hidden="true"></i>
 	              Профиль
+	            </a>
+	          </li>
+						<li class="theme nav-item1">
+	            <a class="theme nav-link1{% if auth.url == 'instruction'%} active{%endif%}" href="/instruction">
+	              <i class="fa fa-list hid fa-fw" aria-hidden="true"></i>
+	              Инструкция
 	            </a>
 	          </li>
 						<li class="theme nav-item1">
@@ -105,8 +88,8 @@
 								 	Тема
 								</a>
 						</li>
-	        </ul>
 
+	        </ul>
 	      </div>
 	    </nav>
 			{% block mainContent%}

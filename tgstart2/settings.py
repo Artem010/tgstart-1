@@ -31,7 +31,7 @@ SECRET_KEY = 'f^l4d$%aqmod*ybac4=m&(rr(xb+w+cyy)x-^*(srvwqi89b%4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['23.111.216.13']
 
 
 

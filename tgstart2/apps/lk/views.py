@@ -114,13 +114,13 @@ def edit(request):
         print("POST")
         if 'idCommand' in request.POST: #deletion currnet bot's command
             (cBot.customcommand_set.get(id = request.POST.get('idCommand'))).delete()
+            reloadbot(request)            
             return HttpResponse("Команда удалена!")
-            reloadbot(request)
             # return redirect('/mybots/edit')
         elif 'botCommand' in request.POST: #adding currnet bot's command
             cBot.customcommand_set.create(command = request.POST.get('botCommand'), response = request.POST.get('botResponse'))
-            return HttpResponse("Команда добавлена!")
             reloadbot(request)
+            return HttpResponse("Команда добавлена!")
 
     return render(request, 'volt/edit.html', {'cBot':cBot,'cBotCustomCommands':cBotCustomCommands, 'auth': check_auth(request)})
 

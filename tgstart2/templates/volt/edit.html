@@ -19,22 +19,25 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 zag">{{cBot.bot_name}} / Редактирование</h1>
       </div>
-      <label class="errorLine"></label><br>
+
 
       <!-- Modal -->
       <form class="form-inline" id='addCommandForm' action="" method="post">
         {% csrf_token %}
         <div class="form-group mb-2">
           <label class="errorLine sr-only"></label><br>
-            <textarea rows="4" maxlength="35" cols="35" required class="botCommand " autocomplete="off" placeholder="Команда" type="text" name="botCommand" value=""></textarea><br>
-            <textarea rows="4" maxlength="35" cols="35" required class="botResponse " autocomplete="off" placeholder="Ответ" type="text" name="botResponse" value=""></textarea>
+            <textarea id="lab" rows="2" maxlength="35" cols="25" required class="botCommand " autocomplete="off" placeholder="Команда" type="text" name="botCommand" value=""></textarea><br>
+            <textarea id="lab" rows="2" maxlength="35" cols="25" required class="botResponse " autocomplete="off" placeholder="Ответ" type="text" name="botResponse" value=""></textarea>
         </div>
         <br>
         <button type="button" class="createBot btn nav-link1" name="button">Добавить команду</button>
-      </form><br>
-
+      </form>
+      <label class="errorLine"></label><br>
 
       {%if cBotCustomCommands != 0%}
+      <div class="table-block">
+
+
         <table id='tableCommands' class="">
           <thead>
             <tr>
@@ -48,11 +51,12 @@
               <tr>
                 <td class="name1">{{i.command}}</td>
                 <td class="name1">{{i.response}}</td>
-                <td><a class="nav-link1 editLink delkom" style="margin-left:20px; color:red!important;" data-id='{{cBot.id}}' data-idCommand='{{i.id}}'">Удалить</a></td>
+                <td><a class="nav-link1 editLink  nav-linkdanger" style="margin-left:20px; " data-id='{{cBot.id}}' data-idCommand='{{i.id}}'">Удалить</a></td>
               </tr>
             {%endfor%}
           </tbody>
         </table>
+        </div>
         <div class="razdel">
         </div>
         <div class="razdel">
@@ -60,7 +64,7 @@
         <div class="razdel">
         </div>
       {%else%}
-        <h2 class="zag">Команд ещё нет</h2>
+        <h2 class="zag">Команд ещё нет, создайте свою первую команду!</h2>
       {%endif%}
 {% csrf_token %}
 

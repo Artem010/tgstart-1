@@ -13,13 +13,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-	<!-- (Optional) Latest compiled and minified JavaScript translation files -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-
 	{% block head %}
 	{% endblock %}
 	<link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
@@ -29,7 +25,6 @@
 	<nav class="navbar  theme sticky-top navbar-expand-lg">
 		<ul class="navbar-nav mr-auto">
 			<li class="navbar-brand theme ">TeleBuilder</li>
-
 		</ul>
 		<ul class="navbar-nav ml-auto" >
 			<li class="nav-item">
@@ -88,7 +83,6 @@
 								 	Тема
 								</a>
 						</li>
-
 	        </ul>
 	      </div>
 	    </nav>
@@ -99,33 +93,30 @@
 
 </body>
 <script type="text/javascript">
-
 const btn = document.querySelector('.theme__button')
 const theme = document.querySelector('.theme')
 const currentTheme = localStorage.getItem('theme')
 
 function setTheme(name){
-theme.setAttribute('data-theme', name)
-localStorage.setItem('theme', name)
+		theme.setAttribute('data-theme', name)
+		localStorage.setItem('theme', name)
 }
-
 if (currentTheme) {
-theme.setAttribute('data-theme', currentTheme)
-} else {
-setTheme('light')
+		theme.setAttribute('data-theme', currentTheme)
 }
-
+else {
+		setTheme('light')
+}
 btn.addEventListener('click', () => {
-if (theme.getAttribute('data-theme') === 'light') {
-  setTheme('dark')
-} else if (theme.getAttribute('data-theme') === 'dark') {
-  setTheme('light')
-}
+		if (theme.getAttribute('data-theme') === 'light') {
+  		setTheme('dark')
+		}
+		else if (theme.getAttribute('data-theme') === 'dark') {
+  		setTheme('light')
+		}
 })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-
 {% block footerScripts%}
 {% endblock%}
 </html>

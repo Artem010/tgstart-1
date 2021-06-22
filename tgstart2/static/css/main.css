@@ -26,7 +26,12 @@
   color:var(--third-color);
   font-weight: 600;
 }
-
+textarea::placeholder {
+  color: var(--contrast-color);
+}
+#lab {
+  color:var(--contrast-color);
+}
 .choose-bot{
   background:var(--primary-color);
   color: var(--theme-color);
@@ -51,7 +56,7 @@
 }
 .inf-card{
   background: var(--second-color);
-  border-radius: 5px;
+  border-radius: 5px !important;
   border: 3px solid var(--primary-color);
   padding: 10px;
   font-size: 1.1em;
@@ -88,6 +93,11 @@ table {
   table-layout: fixed;
   width: 95%;
 }
+.table-block{
+  border-radius: 5px;
+  border: 3px solid var(--third-color);
+  margin: 15px;
+}
 .modal-content{
   background:var(--second-color);
   color: var(--theme-color);
@@ -98,6 +108,7 @@ table {
 }
 textarea{
   border: 3px solid var(--third-color)!important;
+  border-radius: 5px;
   outline: none !important;
 	-moz-appearance: none !important;
   resize: none;
@@ -108,14 +119,14 @@ textarea{
 }
 table tr {
   background: var(--second-color);
-  border: 3px solid var(--third-color);
+  /* border: 3px solid var(--third-color); */
   padding: .35em;
+  text-align: center !important;
 }
 table th,
 table td {
   padding: .625em;
   text-align: center !important;
-  word-wrap:break-word;
 }
 button{
   border: 0 !important;
